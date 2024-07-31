@@ -18,7 +18,7 @@ const userSchema = new Schema({
   todos: [{ title: String, status: String }],
   createdAt: {
     type: Date,
-    default: () => Date.now,
+    default: () => Date.now(),
     immutable: true,
   },
 });

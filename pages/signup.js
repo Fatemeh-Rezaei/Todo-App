@@ -1,7 +1,8 @@
+import SignupPage from "@/templates/SignupPage";
+
+
 function SignUp() {
-  return (
-    <div>SignUp</div>
-  )
+  return <SignupPage />
 }
 
-export default SignUp
+export default SignUp;

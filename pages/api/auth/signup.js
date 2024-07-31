@@ -1,6 +1,7 @@
+// import connectDB from "@/utils/connectDB";
 import connectDB from "../../../utils/connectDB";
-import User from "../../../models/User";
-import { hashPassword } from "../../../utils/auth";
+import User from "@/models/User";
+import { hashPassword } from "@/utils/auth";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return;
@@ -16,6 +17,7 @@ export default async function handler(req, res) {
   }
 
   const { email, password } = req.body;
+  console.log({email, password});
 
   if (!email || !password) {
     return res.status(422).json({
