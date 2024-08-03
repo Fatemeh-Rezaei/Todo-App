@@ -1,7 +1,8 @@
 import User from "@/models/User";
 import connectDB from "@/utils/connectDB";
+import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
-import { sendError } from "next/dist/server/api-utils";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
   try {
@@ -14,7 +15,7 @@ export default async function handler(req, res) {
     });
   }
 
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
   if (!session) {
     return res.status(401).json({
       status: "failed",
