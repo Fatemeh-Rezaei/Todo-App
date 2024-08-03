@@ -3,6 +3,7 @@ import connectDB from "@/utils/connectDB";
 import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 import { authOptions } from "./auth/[...nextauth]";
+import { sortTodos } from "@/utils/sortTodos";
 
 export default async function handler(req, res) {
   try {
@@ -48,6 +49,27 @@ export default async function handler(req, res) {
     res.status(201).json({
       status: "success",
       message: "Todo Created!",
+    });
+  } else if (req.method === "GET") {
+    const sortedData = sortTodos(user.todos);
+    res.status(200).json({ status: "success", data: { todos: sortedData } });
+  } else if (req.method === "PATCH") {
+    const { id, status } = req.body;
+
+    if (!id || !status) {
+      return res.status(422).json({
+        status: "failed",
+        message: "Invalid Data",
+      });
+    }
+
+    const result = await User.updateOne(
+      { "todos._id": id },
+      { $set: { "todos.$.status": status } }
+    );
+    console.log(result);
+    res.status(200).json({
+      status: "success",
     });
   }
 }

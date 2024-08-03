@@ -1,6 +1,5 @@
+import HomePage from "@/templates/HomePage";
+
 export default function Home() {
-  return (
-    <h1>Todo App</h1>
-  )
+  return <HomePage />;
 }
- 
