@@ -1,13 +1,27 @@
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 import { VscListSelection } from "react-icons/vsc";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
+import { FiLogOut } from "react-icons/fi";
 
 function Layout({ children }) {
+  const { status } = useSession();
+
+  const logoutHandler = () => {
+    signOut()
+  }
+
   return (
     <div className="container">
       <header>
         <p>Todo App</p>
+        {status === "authenticated" ? (
+          <button onClick={logoutHandler}>
+            Logout
+            <FiLogOut />
+          </button>
+        ) : null}
       </header>
       <div className="container--main">
         <aside>
